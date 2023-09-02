@@ -11,6 +11,17 @@ function displayPhones(phones){
     //step-1: get id from HTML ..
     const phoneContainer = document.getElementById('phone-container');
     phoneContainer.textContent = '';
+
+    //show All button if items are more than 12 
+    const showAllContainer = document.getElementById('show-all-container');
+    if(phones.length > 12){
+        showAllContainer.classList.remove('hidden');
+    }
+    else{
+        showAllContainer.classList.add('hidden');
+    }
+    //display phone 10 phone data when search
+    phones = phones.slice(0,12);
     phones.forEach(phone => {
         console.log(phone);
     //step-2: create div
