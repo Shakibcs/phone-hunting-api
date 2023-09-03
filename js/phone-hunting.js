@@ -1,4 +1,4 @@
-const loadPhone = async (searchText, isShowAll) =>{
+const loadPhone = async (searchText='13', isShowAll) =>{
     const res = await fetch(`https://openapi.programming-hero.com/api/phones?search=${searchText}`);
     const data = await res.json();
     const phones = data.data;
@@ -25,7 +25,7 @@ function displayPhones(phones,isShowAll){
         phones = phones.slice(0,12);
     }
     phones.forEach(phone => {
-        console.log(phone);
+       // console.log(phone);
     //step-2: create div
         const phoneCard = document.createElement('div');
         phoneCard.classList = `card bg-gray-100 p-4 shadow-xl`;
@@ -54,8 +54,27 @@ const handleShowDetail = async(id) =>{
     //load single phone data
     const res = await fetch(`https://openapi.programming-hero.com/api/phone/${id}`);
     const data = await res.json();
-    console.log(data);
+    const phone = data.data;
+    showPhoneDetails(phone);
+    console.log(phone);
 }
+
+const showPhoneDetails = (phone) => {
+   
+    const phoneName = document.getElementById('show_phone_details_name');
+    phoneName.innerText = phone.name;
+    show_details_modals.showModal();
+
+    const showDetailContainer = document.getElementById("show-detail-container");
+    showDetailContainer.innerHTML = `
+        <img src="''${phone.image}">
+        <p><span>Storage: </span> ${phone?.mainFeatures?.storage}</p>
+        <p><span>GPS: </span> ${phone?.others?.GPS}</p>
+        
+
+    `;
+}
+
 
 
 //search handler button
@@ -81,4 +100,4 @@ const toggleLoadingSpinner = (isLoading) => {
     }
 
 }
-//loadPhone();
+loadPhone();
